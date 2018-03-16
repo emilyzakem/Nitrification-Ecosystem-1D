@@ -60,7 +60,7 @@ REAL*8,PARAMETER :: dt=0.02D0, &
     chl2cmin=0.02D0, & !min Chl/mmol C 
     phimax=40D0, & !mmol C/mol photons/Ein  -quantum yield (mol C/mol photons)
     a_chl=0.02D0, & !m2/mg chl a -absorption parameter by chlorophyll 
-    a_chlD=0.04D3, & !for light attenutation: chlorophyll plus CDOM
+    a_chlD=0.04D3, & !m2/g chl a -for light attenutation: chlorophyll plus CDOM
 	convI=2.77D18/6.02D23*86400D0, & !from W/m2 to Ein/m2/d 2.77e18[quanta/W/s]*1/6.02e23[Einstein/quanta]. from MBARI: http://www3.mbari.org/bog/nopp/par.html
     !
     !Zooplankton:
