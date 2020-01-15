@@ -6,7 +6,7 @@ PROGRAM EZM
 
 IMPLICIT NONE
 
-INTEGER,PARAMETER :: ndays=1e4, &
+INTEGER,PARAMETER :: ndays=5e5, &
 	Hp=2000, & !change this scale below too
 	dz=5, &  
 	nz=Hp/dz
