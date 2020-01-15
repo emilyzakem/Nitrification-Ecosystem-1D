@@ -6,7 +6,7 @@ PROGRAM EZM
 
 IMPLICIT NONE
 
-INTEGER,PARAMETER :: ndays=5e5, &
+INTEGER,PARAMETER :: ndays=1e4, &
 	Hp=2000, & !change this scale below too
 	dz=5, &  
 	nz=Hp/dz
@@ -408,6 +408,7 @@ end if
 print *,'Starting time loop:'
 do t=1,nt
 
+
 !LIGHT:
 if (dailycycle.eq.1) then !Incoming light daily cycle:
     Iin=Iinmax/2D0*(cos(t*dt*2D0*3.1416D0)+1D0)
@@ -453,41 +454,78 @@ if (MOD(j,i).eq.0) then
 
 end if
 
+!get kA:
 call MYRK(nh4,no3,no2,d,dom,o,zoo,zoo2,zoo3,p1,xp1,p2,xp2,p3,xp3, &
 				bo,bo_pa,bnh4,bno2, & 
 				knh4A,kno3A,kno2A,kdA,kdomA,koA,kzooA,kzoo2A,kzoo3A, &
                 kp1A,kxp1A,kp2A,kxp2A,kp3A,kxp3A, &
-				kboA,kbo_paA,kbnh4A,kbno2A, &
-				nh4A,no3A,no2A,dA,domA,oA,zooA,zoo2A,zoo3A, &
-                p1A,xp1A,p2A,xp2A,p3A,xp3A, &
-				boA,bo_paA,bnh4A,bno2A) 		
+				kboA,kbo_paA,kbnh4A,kbno2A)
+
+!get yA:
+nh4A = nh4 + dt/2D0*knh4A; 
+no2A = no2 + dt/2D0*kno2A; 
+no3A = no3 + dt/2D0*kno3A; 
+boA = bo + dt/2D0*kboA; 
+bnh4A = bnh4 + dt/2D0*kbnh4A; 
+bno2A = bno2 + dt/2D0*kbno2A; 
+dA = d + dt/2D0*kdA; 
+oA = o + dt/2D0*koA; 
+zooA = zoo + dt/2D0*kzooA; 
+zoo2A = zoo2 + dt/2D0*kzoo2A; 
+zoo3A = zoo3 + dt/2D0*kzoo3A; 
+p1A = p1 + dt/2D0*kp1A;
+p2A = p2 + dt/2D0*kp2A;
+p3A = p3 + dt/2D0*kp3A;
 
 call MYRK(nh4A,no3A,no2A,dA,domA,oA,zooA,zoo2A,zoo3A,p1A,xp1A,p2A,xp2A,p3A,xp3A, &
 				boA,bo_paA,bnh4A,bno2A, & 
 				knh4B,kno3B,kno2B,kdB,kdomB,koB,kzooB,kzoo2B,kzoo3B, &
                 kp1B,kxp1B,kp2B,kxp2B,kp3B,kxp3B, &
-				kboB,kbo_paB,kbnh4B,kbno2B, &
-				nh4B,no3B,no2B,dB,domB,oB,zooB,zoo2B,zoo3B, &
-                p1B,xp1B,p2B,xp2B,p3B,xp3B, &
-				boB,bo_paB,bnh4B,bno2B) 
-				
+				kboB,kbo_paB,kbnh4B,kbno2B)
+	
+!get yB:
+nh4B = nh4 + dt/2D0*knh4B; 
+no2B = no2 + dt/2D0*kno2B; 
+no3B = no3 + dt/2D0*kno3B; 
+boB = bo + dt/2D0*kboB; 
+bnh4B = bnh4 + dt/2D0*kbnh4B; 
+bno2B = bno2 + dt/2D0*kbno2B; 
+dB = d + dt/2D0*kdB; 
+oB = o + dt/2D0*koB; 
+zooB = zoo + dt/2D0*kzooB; 
+zoo2B = zoo2 + dt/2D0*kzoo2B; 
+zoo3B = zoo3 + dt/2D0*kzoo3B; 
+p1B = p1 + dt/2D0*kp1B;
+p2B = p2 + dt/2D0*kp2B;
+p3B = p3 + dt/2D0*kp3B;
+
 call MYRK(nh4B,no3B,no2B,dB,domB,oB,zooB,zoo2B,zoo3B,p1B,xp1B,p2B,xp2B,p3B,xp3B, &
 				boB,bo_paB,bnh4B,bno2B, & 
 				knh4C,kno3C,kno2C,kdC,kdomC,koC,kzooC,kzoo2C,kzoo3C, &
                 kp1C,kxp1C,kp2C,kxp2C,kp3C,kxp3C, &
-				kboC,kbo_paC,kbnh4C,kbno2C, &
-				nh4C,no3C,no2C,dC,domC,oC,zooC,zoo2C,zoo3C, &
-                p1C,xp1C,p2C,xp2C,p3C,xp3C, &
-				boC,bo_paC,bnh4C,bno2C)
+				kboC,kbo_paC,kbnh4C,kbno2C)
 				
+!get yC:
+nh4C = nh4 + dt*knh4B; 
+no2C = no2 + dt*kno2B; 
+no3C = no3 + dt*kno3B; 
+boC = bo + dt*kboB; 
+bnh4C = bnh4 + dt*kbnh4B; 
+bno2C = bno2 + dt*kbno2B; 
+dC = d + dt*kdB; 
+oC = o + dt*koB; 
+zooC = zoo + dt*kzooB; 
+zoo2C = zoo2 + dt*kzoo2B; 
+zoo3C = zoo3 + dt*kzoo3B; 
+p1C = p1 + dt*kp1B;
+p2C = p2 + dt*kp2B;
+p3C = p3 + dt*kp3B;
+
 call MYRK(nh4C,no3C,no2C,dC,domC,oC,zooC,zoo2C,zoo3C,p1C,xp1C,p2C,xp2C,p3C,xp3C, &
 				boC,bo_paC,bnh4C,bno2C, & 
 				knh4D,kno3D,kno2D,kdD,kdomD,koD,kzooD,kzoo2D,kzoo3D, &
                 kp1D,kxp1D,kp2D,kxp2D,kp3D,kxp3D, &
-				kboD,kbo_paD,kbnh4D,kbno2D, &
-				nh4A,no3A,no2A,dA,domA,oA,zooA,zoo2A,zoo3A, &
-                p1A,xp1A,p2A,xp2A,p3A,xp3A, &
-				boA,bo_paA,bnh4A,bno2A)
+				kboD,kbo_paD,kbnh4D,kbno2D)
 	
 nh4 = nh4 + dt/6D0*(knh4A + 2D0*knh4B + 2D0*knh4C + knh4D);
 no2 = no2 + dt/6D0*(kno2A + 2D0*kno2B + 2D0*kno2C + kno2D);
@@ -902,11 +940,7 @@ SUBROUTINE MYRK(nh4_one,no3_one,no2_one,d_one,dom_one,o_one, &
 				knh4_two,kno3_two,kno2_two,kd_two,kdom_two,ko_two, &
                 kzoo_two,kzoo2_two,kzoo3_two, &
 				kp1_two,kxp1_two,kp2_two,kxp2_two,kp3_two,kxp3_two, &
-				kbo_two,kbo_pa_two,kbnh4_two,kbno2_two, &
-				nh4_two,no3_two,no2_two,d_two,dom_two,o_two, &
-                zoo_two,zoo2_two,zoo3_two, &
-				p1_two,xp1_two,p2_two,xp2_two,p3_two,xp3_two, &
-				bo_two,bo_pa_two,bnh4_two,bno2_two) 
+				kbo_two,kbo_pa_two,kbnh4_two,kbno2_two)
 				
 implicit none
 REAL*8, dimension(nz+4), intent(in) :: nh4_one,no3_one,no2_one,d_one,dom_one,o_one, &
@@ -915,11 +949,7 @@ REAL*8, dimension(nz+4), intent(in) :: nh4_one,no3_one,no2_one,d_one,dom_one,o_o
 REAL*8, dimension(nz+4), intent(out) :: knh4_two,kno3_two,kno2_two,kd_two, &
 				kdom_two,ko_two,kzoo_two,kzoo2_two,kzoo3_two, &
                 kp1_two,kxp1_two,kp2_two,kxp2_two,kp3_two,kxp3_two, &
-				kbo_two,kbo_pa_two,kbnh4_two,kbno2_two, &
-				nh4_two,no3_two,no2_two,d_two,dom_two,o_two, &
-                zoo_two,zoo2_two,zoo3_two, &
-                p1_two,xp1_two,p2_two,xp2_two,p3_two,xp3_two, &
-				bo_two,bo_pa_two,bnh4_two,bno2_two
+				kbo_two,kbo_pa_two,kbnh4_two,kbno2_two
 
     do j=1,nz ; jc=j+2;       
     	call mydiff(nh4_one,Kz,j,dz,nz,diff)
@@ -1076,21 +1106,6 @@ ko_two = ko_two &
 		+ koverh*(o2sat-o_one)*eqmask & !air-sea
 		+ t_o2relax*(o2satdeep-o_one)*inmask  !relaxation at depth (lateral flux)
 
-!TIMESTEP:
-nh4_two = nh4 + dt/2D0*knh4_two; 
-no2_two = no2 + dt/2D0*kno2_two; 
-no3_two = no3 + dt/2D0*kno3_two; 
-bo_two = bo + dt/2D0*kbo_two; 
-bnh4_two = bnh4 + dt/2D0*kbnh4_two; 
-bno2_two = bno2 + dt/2D0*kbno2_two; 
-d_two = d + dt/2D0*kd_two; 
-o_two = o + dt/2D0*ko_two; 
-zoo_two = zoo + dt/2D0*kzoo_two; 
-zoo2_two = zoo2 + dt/2D0*kzoo2_two; 
-zoo3_two = zoo3 + dt/2D0*kzoo3_two; 
-p1_two = p1 + dt/2D0*kp1_two;
-p2_two = p2 + dt/2D0*kp2_two;
-p3_two = p3 + dt/2D0*kp3_two;
 
         
 END SUBROUTINE MYRK
