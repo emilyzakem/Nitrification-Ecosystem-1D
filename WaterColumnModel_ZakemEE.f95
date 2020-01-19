@@ -506,20 +506,20 @@ call MYRK(nh4B,no3B,no2B,dB,domB,oB,zooB,zoo2B,zoo3B,p1B,xp1B,p2B,xp2B,p3B,xp3B,
 				kboC,kbo_paC,kbnh4C,kbno2C)
 				
 !get yC:
-nh4C = nh4 + dt*knh4B; 
-no2C = no2 + dt*kno2B; 
-no3C = no3 + dt*kno3B; 
-boC = bo + dt*kboB; 
-bnh4C = bnh4 + dt*kbnh4B; 
-bno2C = bno2 + dt*kbno2B; 
-dC = d + dt*kdB; 
-oC = o + dt*koB; 
-zooC = zoo + dt*kzooB; 
-zoo2C = zoo2 + dt*kzoo2B; 
-zoo3C = zoo3 + dt*kzoo3B; 
-p1C = p1 + dt*kp1B;
-p2C = p2 + dt*kp2B;
-p3C = p3 + dt*kp3B;
+nh4C = nh4 + dt*knh4C; 
+no2C = no2 + dt*kno2C; 
+no3C = no3 + dt*kno3C; 
+boC = bo + dt*kboC; 
+bnh4C = bnh4 + dt*kbnh4C; 
+bno2C = bno2 + dt*kbno2C; 
+dC = d + dt*kdC; 
+oC = o + dt*koC; 
+zooC = zoo + dt*kzooC; 
+zoo2C = zoo2 + dt*kzoo2C; 
+zoo3C = zoo3 + dt*kzoo3C; 
+p1C = p1 + dt*kp1C;
+p2C = p2 + dt*kp2C;
+p3C = p3 + dt*kp3C;
 
 call MYRK(nh4C,no3C,no2C,dC,domC,oC,zooC,zoo2C,zoo3C,p1C,xp1C,p2C,xp2C,p3C,xp3C, &
 				boC,bo_paC,bnh4C,bno2C, & 
